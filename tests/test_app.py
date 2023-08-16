@@ -1,24 +1,26 @@
+import pytest
+
 # Tests for your routes go here
-# """
-# When: I make a GET request to /wave?name=Dana
-# I expect the status code to be 200 OK
-# and the response to be 'I am waving at Dana'
-# """
-# def test_get_wave(web_client):
-#     response = web_client.get('/wave?name=Dana')
-#     assert response.status_code == 200
-#     assert response.data.decode('utf-8') == 'I am waving at Dana'
+"""
+When: I make a GET request to /wave?name=Dana
+I expect the status code to be 200 OK
+and the response to be 'I am waving at Dana'
+"""
+def test_get_wave(web_client):
+    response = web_client.get('/wave?name=Dana')
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'I am waving at Dana'
 
 
-# """
-# When: I make a POST request to /submit
-# And: I send a name and message as body parameters
-# Then: I should get a 200 response with the right content
-# """
-# def test_post_submit(web_client):
-#     response = web_client.post('/submit', data={'name': 'Dana', 'message': 'Hello'})
-#     assert response.status_code == 200
-#     assert response.data.decode('utf-8') == 'Thanks Dana, you sent this message: "Hello"'
+"""
+When: I make a POST request to /submit
+And: I send a name and message as body parameters
+Then: I should get a 200 response with the right content
+"""
+def test_post_submit(web_client):
+    response = web_client.post('/submit', data={'name': 'Dana', 'message': 'Hello'})
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'Thanks Dana, you sent this message: "Hello"'
 
 
 """
@@ -55,11 +57,23 @@ def test_get_home(web_client):
 
 
 """
+Expected response (200 OK):
 return the sorted list of names
 Alice, Joe, Julia, Kieran, Zoe
 """
 
 def test_post_sort_names(web_client):
-    response = web_client.post('/sort-names', data={'names': 'Joe, Alice, Zoe, Julia, Kieran'})
+    response = web_client.post('/sort-names', data={'names': 'Joe,Alice,Zoe,Julia,Kieran'})
     assert response.status_code == 200
-    assert response.data.decode('utf-8') == 'Alice, Joe, Julia, Kieran, Zoe'
+    assert response.data.decode('utf-8') == 'Alice,Joe,Julia,Kieran,Zoe'
+
+
+def test_get_names_no_add_param(web_client):
+    response = web_client.get('/names')
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'Julia,Alice,Karim'
+
+def test_get_names_with_add_param(web_client):
+    response = web_client.get('/names?add=Eddie')
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'Julia,Alice,Karim,Eddie'

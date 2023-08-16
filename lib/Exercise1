@@ -1,8 +1,0 @@
-Work through the following in app.py your hello_web_project project.
-
-Create a new route that responds to requests sent with:
-
-A method GET
-A path /wave
-A query parameter name
-It should return the text 'I am waving at [NAME]', where [NAME] is replaced by the value of the name query parameter.

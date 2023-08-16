@@ -52,9 +52,6 @@ After each test you write, follow the test-driving process of red, green, refact
 
 Here's an example for you to start with:
 
-
-
-
 """
 GET /home
   Expected response (200 OK):
@@ -84,11 +81,10 @@ def test_post_sort_names(web_client):
 # POST /sort-names
 #  Parameters: none
 #  Expected response (400 Bad Request):
+
 """
 Please provide a list of names
 """
-
-
 def test_post_sort_names_none(web_client):
     with pytest.raises(Exception) as e:
         response = web_client.post('/sort-names', data=none)
